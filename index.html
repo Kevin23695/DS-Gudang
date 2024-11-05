@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gudang</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: rgba(0, 0, 0, 0.7); color: white; text-align: center; }
+        .container { margin-top: 50px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Gudang</h2>
+        <div>
+            <input type="text" id="item" placeholder="Nama Item">
+            <input type="number" id="amount" placeholder="Jumlah">
+            <button onclick="storeItem()">Simpan Item</button>
+            <button onclick="takeItem()">Ambil Item</button>
+        </div>
+        <button onclick="closeWarehouse()">Tutup</button>
+    </div>
+
+    <script>
+        function closeWarehouse() {
+            fetch(`https://${GetParentResourceName()}/closeWarehouse`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({}) })
+        }
+        
+        function storeItem() {
+            const item = document.getElementById("item").value;
+            const amount = parseInt(document.getElementById("amount").value);
+            fetch(`https://${GetParentResourceName()}/storeItem`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ item, amount }) })
+        }
+        
+        function takeItem() {
+            const item = document.getElementById("item").value;
+            const amount = parseInt(document.getElementById("amount").value);
+            fetch(`https://${GetParentResourceName()}/takeItem`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ item, amount }) })
+        }
+    </script>
+</body>
+</html>
